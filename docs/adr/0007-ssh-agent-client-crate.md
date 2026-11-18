@@ -25,6 +25,10 @@ must fit `ssh-key`'s SSHSIG code.
 
 - Less own code in the client; no hand-written agent protocol to test.
 - One more dependency in the supply chain. `cargo audit` in CI checks `Cargo.lock`.
+- The crate turns on `ssh-key`'s `crypto` feature, which brings in RSA and the NIST curves
+  that sus does not use. Their advisories RUSTSEC-2023-0071 (`rsa`) and RUSTSEC-2026-0387
+  (`crypto-bigint`) concern operations on private keys, which sus never does. They are
+  ignored in `.cargo/audit.toml`, each with its reason. An own client would remove them.
 - An update of either crate is a deliberate change of the pin, because their APIs must keep
   fitting together.
 - If the crate becomes unmaintained or its API drifts, an own client for the two messages

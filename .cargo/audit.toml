@@ -1,0 +1,16 @@
+# cargo audit (CI and `mise exec -- cargo audit`).
+#
+# Ignored advisories must not reach sus. Each entry says why; remove it once the
+# dependency is updated or gone. See docs/adr/0007-ssh-agent-client-crate.md.
+[advisories]
+ignore = [
+  # rsa 0.9 (Marvin Attack): timing leak in decryption and signing with a private RSA
+  # key. sus never holds a private key: the agent signs, sus only parses public keys
+  # and verifies ed25519. rsa comes in through ssh-agent-client-rs, which turns on
+  # ssh-key's "crypto" feature. No fixed 0.9 release.
+  "RUSTSEC-2023-0071",
+  # crypto-bigint 0.5 (timing variability in constant-time operations): only matters
+  # for secret operands. Used by the NIST curves that the same feature pulls in; sus
+  # does no ECDSA and no operation on secrets.
+  "RUSTSEC-2026-0387",
+]

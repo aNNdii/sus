@@ -17,10 +17,12 @@ mise exec -- cargo test --locked
 mise exec -- cargo clippy --locked --all-targets -- -D warnings
 mise exec -- cargo fmt --check
 mise exec -- dist plan
+mise exec -- cargo audit
 ```
 
 `rust-toolchain.toml` pins Rust 1.100.0, so CI and your machine build with the same compiler.
-CI runs the same checks on every pull request and also `cargo audit` against `Cargo.lock`.
+CI runs the same checks on every pull request. `cargo audit` checks `Cargo.lock` against the
+RustSec advisories; ignored advisories are listed with their reason in `.cargo/audit.toml`.
 
 The tests run the service without root on a temporary socket (`SUS_SOCKET`, `SUS_CONFIG`;
 honoured only when not root), with a throwaway key and a private `ssh-agent`. They never
