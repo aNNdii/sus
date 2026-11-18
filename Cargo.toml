@@ -1,0 +1,50 @@
+[package]
+name = "sus-cli"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.100"
+description = "sudo for macOS, authorised per call by an SSH signature (Touch ID in your SSH agent)"
+license = "MIT"
+repository = "https://github.com/aNNdii/sus"
+publish = false
+
+[lib]
+name = "sus"
+path = "src/lib.rs"
+
+[[bin]]
+name = "sus"
+path = "src/bin/sus.rs"
+
+[[bin]]
+name = "susd"
+path = "src/bin/susd.rs"
+
+[dependencies]
+getrandom = "=0.4.3"
+libc = "=0.2.191"
+serde = { version = "=1.0.229", features = ["derive"] }
+sha2 = "=0.10.9"
+ssh-agent-client-rs = "=1.1.4"
+ssh-key = { version = "=0.6.7", features = ["ed25519", "std", "getrandom"] }
+toml = "=1.2.1"
+
+[dev-dependencies]
+tempfile = "=3.27.0"
+
+# Not on crates.io, but dist still releases the binaries.
+[package.metadata.dist]
+dist = true
+
+[lints.rust]
+unsafe_op_in_unsafe_fn = "warn"
+trivial_numeric_casts = "warn"
+
+[lints.clippy]
+undocumented_unsafe_blocks = "warn"
+allow_attributes_without_reason = "warn"
+
+# The profile that dist builds release archives with
+[profile.dist]
+inherits = "release"
+lto = "thin"

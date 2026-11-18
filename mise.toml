@@ -1,0 +1,4 @@
+# Project tooling: Rust toolchain and cargo-dist (release builds).
+[tools]
+rust = "1.100.0"
+"aqua:axodotdev/cargo-dist" = "0.34.0"
