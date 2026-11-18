@@ -5,7 +5,7 @@
 <h1 align="center">sus</h1>
 
 <p align="center">
-  <code>sudo</code> for macOS. Each call is approved by your SSH agent (Bitwarden, Touch ID).<br>
+  <code>sudo</code> without a password. Each call is signed by your SSH agent.<br>
   <a href="https://github.com/aNNdii/sus/actions/workflows/ci.yml"><img src="https://github.com/aNNdii/sus/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
 </p>
 
